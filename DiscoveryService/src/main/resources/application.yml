@@ -1,0 +1,32 @@
+server:
+  port: 8761
+  ssl:
+    enabled: true
+    key-alias: eureka-server
+    key-store: classpath:eureka-server.p12
+    key-store-password: EUREKA123
+    key-password: EUREKA123
+    key-store-type: PKCS12
+    trust-store: classpath:eureka-server.jks
+    trust-store-password: EUREKA123
+    trust-store-type: JKS
+#    client-auth: WANT
+
+
+eureka:
+  instance:
+  client:
+    enabled: true
+    tls:
+#      enabled: true
+#      key-store: classpath:eureka.p12
+#      key-store-password: eureka123
+#      key-password: eureka123
+#      key-store-type: PKCS12
+      trust-store: classpath:eureka.jks
+      trust-store-password: 123456
+      trust-store-type: JKS
+    register-with-eureka: false
+    fetch-registry: false
+#    service-url:
+#      defaultZone: https://localhost:8761/eureka/

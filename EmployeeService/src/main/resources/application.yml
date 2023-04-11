@@ -1,0 +1,58 @@
+server:
+  port: 5000
+  ssl:
+    enabled: true
+    key-alias: employee-service
+    key-store: classpath:employee-service.p12
+    key-store-password: ROOT123
+    key-password: ROOT123
+    key-store-type: PKCS12
+    key-store-provider: SUN
+    trust-store: classpath:employee-service.jks
+    trust-store-password: ROOT123
+    trust-store-type: JKS
+    trust-store-provider: SUN
+#    client-auth:
+
+spring:
+  application:
+    name: employee-service
+
+employee-service-version: v1.0
+
+
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+#    hostname: localhost
+    prefer-ip-address: true
+    securePortEnabled: true
+#    securePort: 8761
+    nonSecurePortEnabled: false
+#    statusPageUrl: https://${eureka.instance.hostname}:${eureka.instance.securePort}/info
+#    homePageUrl: https://${eureka.instance.hostname}:${eureka.instance.securePort}/
+#    health-check-url: https://${eureka.instance.hostname}:${eureka.instance.securePort}/health
+
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    tls:
+      enabled: true
+      key-store: classpath:employee-service.p12
+      key-store-password: ROOT123
+      key-password: ROOT123
+      key-store-type: PKCS12
+      trust-store: classpath:employee-service.jks
+      trust-store-password: ROOT123
+      trust-store-type: JKS
+    service-url:
+      defaultZone: https://localhost:8761/eureka
+    healthcheck:
+      enabled: true
+feign:
+  client:
+    config:
+      default:
+        loggerLevel: FULL
+  httpclient:
+    disable-ssl-validation: true

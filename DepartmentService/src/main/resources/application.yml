@@ -1,0 +1,59 @@
+server:
+  port: 9000
+  ssl:
+    enabled: true
+    key-alias: DEPARTMENT-SERVICE
+    key-store: classpath:department-service.p12
+    key-store-password: 123456
+    key-password: 123456
+    key-store-type: PKCS12
+    key-store-provider: SUN
+    trust-store: classpath:department-service.jks
+    trust-store-password: 123456
+    trust-store-type: JKS
+    trust-store-provider: SUN
+#    client-auth:
+
+spring:
+  application:
+    name: department-service
+
+department-service-version : v1.0
+feign:
+  client:
+    config:
+      default:
+        loggerLevel: FULL
+  httpclient:
+    disable-ssl-validation: true
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    prefer-ip-address: true
+#    hostname: localhost
+    securePortEnabled: true
+#    securePort: ${server.port}
+    nonSecurePortEnabled: false
+#    statusPageUrl: https://${eureka.instance.hostname}:${eureka.instance.securePort}/actuator/
+#    homePageUrl: https://${eureka.instance.hostname}:${eureka.instance.securePort}/
+#    health-check-url: https://${eureka.instance.hostname}:${eureka.instance.securePort}/actuator/health
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    tls:
+      enabled: true
+      key-store: classpath:department-service.p12
+      key-store-password: 123456
+      key-password: 123456
+      key-store-type: PKCS12
+      trust-store: classpath:department-service.jks
+      trust-store-password: 123456
+      trust-store-type: JKS
+    service-url:
+      defaultZone: https://localhost:8761/eureka/
+    healthcheck:
+      enabled: true
+
+#logging:
+#  level:
+#    root: debug
